@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 
 const connectionString = process.env.MONGODB_URI;
 
-mongoose.connect(connectionString, { connectTimeoutMS: 2000 })
+console.log("Mongo URI:", connectionString);
+
+mongoose.connect(connectionString)
   .then(() => console.log('Database connected'))
-  .catch(error => console.error(error));
+  .catch(error => console.error('Mongo error:', error));
