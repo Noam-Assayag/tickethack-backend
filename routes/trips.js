@@ -3,7 +3,6 @@ const router = express.Router();
 const Trip = require('../models/trips');
 
 // Recherche des trajets selon le départ, l'arrivée et la date
-// Exemple : GET /trips/search?departure=Paris&arrival=Lyon&date=2026-07-01
 router.get('/search', async (req, res) => {
     try {
         const { departure, arrival, date } = req.query;
@@ -22,10 +21,10 @@ router.get('/search', async (req, res) => {
         const endDate = new Date(date);
         endDate.setDate(endDate.getDate() + 1);
 
-        // Recherche en BDD
+        // Recherche en BDD, insensible à la casse grâce à $regex + 'i'
         const data = await Trip.find({
-            departure,
-            arrival,
+            departure: { $regex: new RegExp(`^${departure}$`, 'i') },
+            arrival: { $regex: new RegExp(`^${arrival}$`, 'i') },
             date: { $gte: startDate, $lt: endDate }
         });
 
