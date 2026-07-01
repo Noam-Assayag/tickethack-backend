@@ -12,7 +12,8 @@ router.get('/search', async (req, res) => {
         if (!departure || !arrival || !date) {
             return res.json({
                 result: false,
-                error: 'Missing search parameters'
+                error: 'Missing search parameters',
+                trips: []
             });
         }
 
@@ -31,7 +32,7 @@ router.get('/search', async (req, res) => {
         res.json({ result: true, trips: data });
 
     } catch (error) {
-        res.json({ result: false, error: error.message });
+        res.json({ result: false, error: error.message, trips: [] });
     }
 });
 
