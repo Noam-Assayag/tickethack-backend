@@ -1,8 +1,11 @@
 function checkCartBody(body) {
-    if (!body._id) {
-        return false;
-    }
-    return true;
+    return (
+        body.tripId &&
+        body.departure &&
+        body.arrival &&
+        body.date &&
+        body.price
+    );
 }
 
 module.exports = { checkCartBody };
